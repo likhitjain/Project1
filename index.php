@@ -147,7 +147,7 @@ class htmlTable extends page {
              }
         $x.= "</tr>";
 }
-
+  echo "Display Table";
   $x.= '</table>';
   //closes the open file
   fclose($f); 
