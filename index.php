@@ -84,15 +84,14 @@ class uploadform extends page
     public function post() {
 
       //set path of the file to be uploaded
-      $target_dir = "/afs/cad/u/l/v/lvj5/public_html/WSD-Project1/uploads/";
+      $target_dir = "uploads/";
       $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-        echo $target_file;
 
       //upload the file to AFS
       if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         header::redirect($target_file);
-        
+            
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
