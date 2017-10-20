@@ -77,7 +77,7 @@ class uploadform extends page
 
     public function get()
     {   
-
+        //static funtion is used because Upload Form will repeat everytime.
         $this->html.=staticfunction::createform(); 
     }
 
@@ -99,15 +99,20 @@ class uploadform extends page
 }
 
 class header {
-      public static function redirect($target_file) {
-         header('Location: index.php?page=htmlTable&csvFile=' . $target_file); //forward the user to Table class
+
+    public static function redirect($target_file) {
+         //forward the user to the new page in htmlTable class
+         header('Location: index.php?page=htmlTable&csvFile=' . $target_file); 
+         
           }
       }
 
 
 
 class staticfunction {
-      public static function createform() {
+
+    //Upload Form
+    public static function createform() {
         $form = '<h1>Upload Form</h1>';
         $form.= '<form action="index.php?page=uploadform" method="post"
         enctype="multipart/form-data">';
@@ -123,17 +128,19 @@ class staticfunction {
 class htmlTable extends page {
 
 
-    public function get() {
+      public function get() {
 
         //displays the content of CSV file in a HTML Table
         $filePath = $_GET['csvFile'];
-        $f = fopen("$filePath", "r"); //opens the file from header function
+        //opens the file from header function
+        $f = fopen("$filePath", "r"); 
         $x ='<table border = "1"><tr>';
-        while (($line = fgetcsv($f)) !== false) {
+        //Here fgetcsv parse CSV file as an array
+        while (($line = fgetcsv($f)) !== false) { 
 
             for ($i=0; $i < sizeof($line) ; $i++) {             
                  $row = $line[$i];
-                 $cells = explode(";",$row);
+                 $cells = explode(";",$row); 
                     foreach ($cells as $cell) {
                          $x.= "<td> $cell </td>" ;
                     }
@@ -141,9 +148,10 @@ class htmlTable extends page {
         $x.= "</tr>";
 }
 
-$x.= '</table>';
-fclose($f);
-$this->html.= $x;
+  $x.= '</table>';
+  //closes the open file
+  fclose($f); 
+  $this->html.= $x;
     
  }
 
